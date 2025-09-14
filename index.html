@@ -109,13 +109,10 @@
   </div>
 
   <script>
-    function nextSept21() {
-      const now = new Date();
-      const year = now.getMonth() > 8 || (now.getMonth() === 8 && now.getDate() > 21) 
-        ? now.getFullYear() + 1 
-        : now.getFullYear();
-      return new Date(year, 8, 14, 8, 0, 0, 0);
-    }
+   function nextSept21() {
+  const now = new Date();
+  return new Date(now.getTime() + 2 * 60 * 1000); // ahora + 2 minutos
+}
 
     const target = nextSept21();
     const elD = document.getElementById("d");
