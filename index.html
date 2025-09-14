@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aguschii</title>
 <style>
-/* ===== Reset y cuerpo ===== */
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
@@ -19,7 +18,6 @@ body {
   padding: 10px;
 }
 
-/* ===== Pantalla inicial ===== */
 .pantalla-inicio { text-align: center; padding: 0 15px; }
 .pantalla-inicio h1 {
   font-size: clamp(2rem, 5vw, 2.6rem);
@@ -40,7 +38,6 @@ body {
 }
 .btn:hover { background: #ffca28; transform: scale(1.05); }
 
-/* ===== Contenedor flor ===== */
 .flor-container {
   display: none;
   flex-direction: column;
@@ -55,10 +52,7 @@ body {
   box-sizing: border-box;
 }
 
-/* ===== SVG ===== */
 svg { width: 100%; height: auto; max-width: 400px; }
-
-/* ===== Pétalos ===== */
 .petalo {
   fill: url(#gradPetalo);
   stroke: #fbc02d;
@@ -76,7 +70,6 @@ svg { width: 100%; height: auto; max-width: 400px; }
 }
 .petalo-g { cursor: pointer; }
 
-/* ===== Centro ===== */
 .centro {
   fill: url(#gradCentro);
   stroke: #f57f17;
@@ -85,7 +78,6 @@ svg { width: 100%; height: auto; max-width: 400px; }
 }
 .detalles-centro { fill: #ffecb3; opacity: 0.9; }
 
-/* ===== Cartelito ===== */
 .cartelito {
   margin-top: 14px;
   background: #fdd835;
@@ -100,7 +92,6 @@ svg { width: 100%; height: auto; max-width: 400px; }
 }
 @keyframes parpadeo { 0%,100%{opacity:1} 50%{opacity:0.65} }
 
-/* ===== Botón música ===== */
 #boton-musica {
   position: fixed;
   top: 15px;
@@ -120,7 +111,6 @@ svg { width: 100%; height: auto; max-width: 400px; }
 #boton-musica:hover { transform: scale(1.08); background: rgba(255,193,7,1); }
 .icono-svg { width: 26px; height: 26px; fill: white; }
 
-/* ===== Corazones ===== */
 .corazon {
   position: fixed;
   bottom: -50px;
@@ -132,7 +122,6 @@ svg { width: 100%; height: auto; max-width: 400px; }
 }
 @keyframes subir { 0% { transform: translateY(0) rotate(0deg); opacity:1 } 100% { transform: translateY(-100vh) rotate(360deg); opacity:0 } }
 
-/* ===== Modal ===== */
 .modal {
   position: fixed;
   top:0; left:0;
@@ -154,22 +143,10 @@ svg { width: 100%; height: auto; max-width: 400px; }
   position: relative;
   word-wrap: break-word;
 }
-.modal-content p {
-  font-size: clamp(1.2rem, 4.5vw, 1.4rem);
-  color: #6d4c41;
-  margin: 0;
-}
-.close {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  font-size: 1.6rem;
-  cursor: pointer;
-  color: #444;
-}
+.modal-content p { font-size: clamp(1.2rem, 4.5vw, 1.4rem); color: #6d4c41; margin: 0; }
+.close { position: absolute; top: 8px; right: 8px; font-size: 1.6rem; cursor: pointer; color: #444; }
 @keyframes fadeIn { from {opacity:0; transform:scale(.98)} to {opacity:1; transform:scale(1)} }
 
-/* ===== Overlay final ===== */
 #final-overlay {
   position: fixed; top:0; left:0; width:100%; height:100%; background:#000; display:none; justify-content:center; align-items:center; z-index:3000;
 }
@@ -177,13 +154,76 @@ svg { width: 100%; height: auto; max-width: 400px; }
   width: 70px; height:70px; background: radial-gradient(circle,#ffea00,#ff8f00);
   border-radius:50%; position:relative; z-index: 10;
 }
-.chispa { position: absolute; width: 6px; height:6px; background:#fff176; border-radius:50%; pointer-events:none; animation: explotar 1s ease-out forwards; box-shadow:0 0 10px #ffeb3b,0 0 20px #ff9800; }
+.chispa {
+  position: absolute; width: 6px; height:6px; background:#fff176; border-radius:50%;
+  pointer-events:none; animation: explotar 1s ease-out forwards;
+  box-shadow:0 0 10px #ffeb3b,0 0 20px #ff9800;
+}
 @keyframes explotar { from{transform:translate(0,0) scale(1); opacity:1;} to{transform:translate(var(--x),var(--y)) scale(0.2);opacity:0;} }
 
-/* ===== Avion y carta ===== */
 #avion { position:absolute; width:50px; top:50%; left:50%; transform: translate(-50%,-50%) scale(0); transition: transform 1s ease; z-index:20; }
-#carta { position:absolute; width:150px; height:100px; top:50%; left:50%; transform: translate(-50%, -50%) scale(0); background:#fff9c4; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.3); display:flex; justify-content:center; align-items:center; font-weight:bold; color:#6d4c41; font-size:1.2rem; z-index:21; transition: transform 2s ease; }
+
+/* ==== Carta estilo sobre ==== */
+#carta {
+  position: absolute;
+  top:50%; left:50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 360px;
+  height: 240px;
+  background:#fff9c4;
+  border-radius:12px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+  display:flex;
+  justify-content:flex-start;
+  align-items:flex-start;
+  flex-direction:column;
+  z-index:21;
+  overflow:hidden;
+  font-family: 'Caveat', cursive;
+}
+
+/* Tapa del sobre */
+#carta .tapa {
+  width: 0;
+  height: 0;
+  border-left: 180px solid transparent;
+  border-right: 180px solid transparent;
+  border-bottom: 100px solid #fdd835;
+  transform-origin: bottom center;
+  transition: transform 1s ease;
+  position: absolute;
+  top:0; left:0;
+  z-index:2;
+}
+
+/* Contenido dentro del sobre */
+#carta .contenido {
+  margin-top: 100px;
+  width: 100%;
+  height: calc(100% - 100px);
+  padding:15px;
+  text-align:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:1.25rem;
+  color:#6d4c41;
+  opacity:0;
+  transition: opacity 1s ease 0.5s;
+  word-wrap: break-word;
+  line-height:1.4;
+}
+
+/* Estado abierto del sobre */
+#carta.abierta .tapa {
+  transform: translateY(-100px);
+}
+#carta.abierta .contenido {
+  opacity:1;
+  margin-top: 20px;
+}
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -195,7 +235,7 @@ svg { width: 100%; height: auto; max-width: 400px; }
 
 <div class="pantalla-inicio" id="inicio">
   <h1>Bienvenida a tu sorpresa Aguschii 🌼</h1>
-  <p>Haz click en continuar miamorr</p>
+  <p>Haz click en continuar mividaaa</p>
   <button class="btn" onclick="mostrarFlor()">Continuar</button>
 </div>
 
@@ -214,12 +254,11 @@ svg { width: 100%; height: auto; max-width: 400px; }
         <path d="M0 -70 C18 -48 18 0 0 34 C-18 0 -18 -48 0 -70 Z"/>
       </g>
     </defs>
-
     <rect x="120" y="180" width="8" height="200" fill="#388e3c" rx="3"/>
     <path d="M124 250 Q150 220, 170 250 Q150 280, 124 250 Z" fill="#4caf50" stroke="#388e3c" stroke-width="1"/>
     <path d="M124 300 Q94 280, 74 310 Q94 340, 124 300 Z" fill="#4caf50" stroke="#388e3c" stroke-width="1"/>
-
     <g id="petalos" transform="translate(125 125)">
+      <!-- 16 pétalos -->
       <g class="petalo-g" transform="rotate(0)"><use href="#petaloShape" class="petalo"/></g>
       <!-- <g class="petalo-g" transform="rotate(22.5)"><use href="#petaloShape" class="petalo"/></g>
       <g class="petalo-g" transform="rotate(45)"><use href="#petaloShape" class="petalo"/></g>
@@ -237,14 +276,12 @@ svg { width: 100%; height: auto; max-width: 400px; }
       <g class="petalo-g" transform="rotate(315)"><use href="#petaloShape" class="petalo"/></g>
       <g class="petalo-g" transform="rotate(337.5)"><use href="#petaloShape" class="petalo"/></g> -->
     </g>
-
     <circle class="centro" cx="125" cy="125" r="35"/>
     <circle class="detalles-centro" cx="115" cy="115" r="8"/>
     <circle class="detalles-centro" cx="135" cy="120" r="10"/>
     <circle class="detalles-centro" cx="125" cy="140" r="7"/>
     <circle class="detalles-centro" cx="110" cy="138" r="9"/>
   </svg>
-
   <div class="cartelito">✨ Toca cada pétalo ✨</div>
 </div>
 
@@ -255,11 +292,15 @@ svg { width: 100%; height: auto; max-width: 400px; }
   </div>
 </div>
 
-<!-- Overlay final -->
 <div id="final-overlay">
   <div class="centrito"></div>
   <img id="avion" src="https://i.postimg.cc/15T8k8rh/avion.png" alt="Avioncito"/>
-  <div id="carta">✨ Tu frase aquí ✨</div>
+  <div id="carta">
+    <div class="tapa"></div>
+    <div class="contenido">
+      <p id="contenido-carta"></p>
+    </div>
+  </div>
 </div>
 
 <audio id="musica" loop>
@@ -269,21 +310,7 @@ svg { width: 100%; height: auto; max-width: 400px; }
 <audio id="sonidoBoom" src="boom.mp3"></audio>
 
 <script>
-const frases = [
-  "Eres mi sol en los días nublados ☀️",
-  "Tu sonrisa ilumina mi mundo ✨",
-  "Siempre floreces en mi corazón 💛",
-  "Gracias por existir 🌼",
-  "Eres un sueño hecho realidad 💫",
-  "Te pienso en cada 11:11 🌟",
-  "Tu alegría es contagiosa 😊",
-  "Mi lugar favorito es a tu lado 💖",
-  "Me haces inmensamente feliz 🥰",
-  "Contigo todo es mejor 🌻",
-  "Eres única e irremplazable 🌟",
-  "Cada día contigo es un regalo 🎁"
-];
-
+const frases = ["Eres mi sol en los días nublados ☀️","Tu sonrisa ilumina mi mundo ✨","Siempre floreces en mi corazón 💛","Gracias por existir 🌼","Eres un sueño hecho realidad 💫","Te pienso en cada 11:11 🌟","Tu alegría es contagiosa 😊","Mi lugar favorito es a tu lado 💖","Me haces inmensamente feliz 🥰","Contigo todo es mejor 🌻","Eres única e irremplazable 🌟","Cada día contigo es un regalo 🎁"];
 const modal = document.getElementById("modal");
 const fraseTexto = document.getElementById("frase");
 const musica = document.getElementById("musica");
@@ -291,111 +318,90 @@ const overlay = document.getElementById("final-overlay");
 const centrito = overlay.querySelector(".centrito");
 const avion = document.getElementById("avion");
 const carta = document.getElementById("carta");
+const contenidoCarta = carta.querySelector(".contenido");
 const sonidoPortal = document.getElementById("sonidoPortal");
 const sonidoBoom = document.getElementById("sonidoBoom");
 
-function mostrarModal(frase) {
-  fraseTexto.textContent = frase;
-  modal.style.display = "flex";
-}
+function mostrarModal(frase){ fraseTexto.textContent = frase; modal.style.display = "flex"; }
 
-function cerrarModal() {
+function cerrarModal(){
   modal.style.display = "none";
   if(petalosRemovidos === petalos.length){
+    musica.pause();
+    sonidoPortal.play();
     lanzarFinal();
   }
 }
 
 const petalos = document.querySelectorAll(".petalo");
-let petalosRemovidos = 0;
-
-petalos.forEach(p => {
-  p.addEventListener("click", e => {
+let petalosRemovidos=0;
+petalos.forEach(p=>{
+  p.addEventListener("click",e=>{
     e.stopPropagation();
-    if(!p.classList.contains("removido")) {
+    if(!p.classList.contains("removido")){
       p.classList.add("removido");
-      const fraseAleatoria = frases[Math.floor(Math.random()*frases.length)];
-      mostrarModal(fraseAleatoria);
+      mostrarModal(frases[Math.floor(Math.random()*frases.length)]);
       petalosRemovidos++;
-      if(petalosRemovidos === petalos.length) {
+      if(petalosRemovidos===petalos.length){
         setTimeout(()=> mostrarModal("¡Todas tus flores amarillas han florecido! 💛 Te quiero mucho."),600);
       }
     }
   });
 });
 
-const botonMusica = document.getElementById("boton-musica");
-const iconoMusica = document.getElementById("icono-musica");
-botonMusica.addEventListener("click", ()=>{
-  if(musica.paused){
-    musica.play().catch(()=>{});
-    iconoMusica.innerHTML = '<rect x="16" y="12" width="8" height="40"/><rect x="40" y="12" width="8" height="40"/>';
-  } else {
-    musica.pause();
-    iconoMusica.innerHTML = '<polygon points="16,12 16,52 52,32"/>';
-  }
+const botonMusica=document.getElementById("boton-musica");
+const iconoMusica=document.getElementById("icono-musica");
+botonMusica.addEventListener("click",()=>{
+  if(musica.paused){ musica.play().catch(()=>{}); iconoMusica.innerHTML='<rect x="16" y="12" width="8" height="40"/><rect x="40" y="12" width="8" height="40"/>'; }
+  else{ musica.pause(); iconoMusica.innerHTML='<polygon points="16,12 16,52 52,32"/>'; }
 });
 
-function mostrarFlor() {
-  document.getElementById("inicio").style.display = "none";
-  document.getElementById("flor").style.display = "flex";
-  musica.volume = 0.5;
-  musica.play().catch(()=>console.log("Autoplay bloqueado."));
+function mostrarFlor(){
+  document.getElementById("inicio").style.display="none";
+  document.getElementById("flor").style.display="flex";
+  musica.volume=0.5; musica.play().catch(()=>console.log("Autoplay bloqueado."));
   lanzarCorazones();
-  iconoMusica.innerHTML = '<rect x="16" y="12" width="8" height="40"/><rect x="40" y="12" width="8" height="40"/>';
+  iconoMusica.innerHTML='<rect x="16" y="12" width="8" height="40"/><rect x="40" y="12" width="8" height="40"/>';
 }
 
-function lanzarCorazones() {
+function lanzarCorazones(){
   setInterval(()=>{
-    const corazon = document.createElement("div");
+    const corazon=document.createElement("div");
     corazon.classList.add("corazon");
     corazon.textContent="💛";
-    corazon.style.left = Math.random()*100 + "vw";
-    corazon.style.fontSize = (20+Math.random()*20)+"px";
+    corazon.style.left=Math.random()*100+"vw";
+    corazon.style.fontSize=(20+Math.random()*20)+"px";
     document.body.appendChild(corazon);
     setTimeout(()=>corazon.remove(),8000);
   },400);
 }
 
-/* ===== Secuencia final mejorada ===== */
 function lanzarFinal(){
-  overlay.style.display = "flex";
-  sonidoPortal.play(); // Música portal
-
-  let escalaCentro = 1;
-  let anguloGiro = 0;
-
-  const girarInterval = setInterval(() => {
-    escalaCentro += 0.02;
-    anguloGiro += 10;
-    centrito.style.transform = `scale(${escalaCentro}) rotate(${anguloGiro}deg)`;
-
-    // Chispas alrededor del centro
-    const chispa = document.createElement("div");
-    chispa.className = "chispa";
-    chispa.style.setProperty('--x', (Math.random()*200-100)+'px');
-    chispa.style.setProperty('--y', (Math.random()*200-100)+'px');
+  overlay.style.display="flex";
+  let escalaCentro=1, anguloGiro=0;
+  const girarInterval=setInterval(()=>{
+    escalaCentro+=0.02;
+    anguloGiro+=10;
+    centrito.style.transform=`scale(${escalaCentro}) rotate(${anguloGiro}deg)`;
+    const chispa=document.createElement("div");
+    chispa.className="chispa";
+    chispa.style.setProperty('--x',(Math.random()*200-100)+'px');
+    chispa.style.setProperty('--y',(Math.random()*200-100)+'px');
     centrito.appendChild(chispa);
     setTimeout(()=>chispa.remove(),1000);
-  }, 50);
+  },50);
 
-  setTimeout(() => {
+  setTimeout(()=>{
     clearInterval(girarInterval);
     sonidoBoom.play();
-
-    // Carta aparece girando y chiquita
-    carta.style.transform = "translate(-50%, -50%) scale(0.3) rotate(-45deg)";
-    carta.style.transition = "transform 2s ease-out";
-
-    // Forzar reflow
+    carta.style.transform="translate(-50%, -50%) scale(0.5) rotate(-45deg)";
+    carta.style.transition="transform 1s ease-out";
     void carta.offsetWidth;
-
-    // Carta se agranda y gira a 0°
-    carta.style.transform = "translate(-50%, -50%) scale(1) rotate(0deg)";
-
-    // Avioncito aparece
-    avion.style.transform = "translate(-50%, -50%) scale(1) rotate(-15deg)";
-  }, 5000);
+    carta.style.transform="translate(-50%, -50%) scale(1) rotate(0deg)";
+    contenidoCarta.textContent="¡Gracias por ser tan especial! 🌟 Que cada pétalo te recuerde lo mucho que te quiero y lo feliz que me haces. 💛💛💛 sdsds dsdsdsdsf dsdsdsd sdsds ds d sdsdsdsd sd ssdsdsdsdsdsd";
+    setTimeout(()=>{ carta.classList.add("abierta"); }, 1000);
+    avion.style.transform="translate(-50%, -50%) scale(1) rotate(-15deg)";
+  },5000);
 }
 </script>
 </body>
