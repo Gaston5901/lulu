@@ -168,32 +168,34 @@ svg { width: 100%; height: auto; max-width: 400px; }
   position: absolute;
   top:50%; left:50%;
   transform: translate(-50%, -50%) scale(0);
-  width: 360px;
-  height: 240px;
-  background:#fff9c4;
-  border-radius:12px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.3);
-  display:flex;
-  justify-content:flex-start;
-  align-items:flex-start;
-  flex-direction:column;
-  z-index:21;
-  overflow:hidden;
+  width: 380px;
+  max-width: 90vw;
+  min-height: 250px;
+  background: #fff9c4;
+  border-radius: 12px;
+  box-shadow: 0 5px 18px rgba(0,0,0,0.35);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   font-family: 'Caveat', cursive;
+  padding: 0;
+  perspective: 800px; /* agrega profundidad para el doblado */
+  z-index: 100;
 }
 
-/* Tapa del sobre */
+/* Tapa del sobre con doblado */
 #carta .tapa {
   width: 0;
   height: 0;
-  border-left: 180px solid transparent;
-  border-right: 180px solid transparent;
+  border-left: 190px solid transparent;
+  border-right: 190px solid transparent;
   border-bottom: 100px solid #fdd835;
   transform-origin: bottom center;
-  transition: transform 1s ease;
+  transition: transform 1s ease, z-index 0s linear 1s;
   position: absolute;
   top:0; left:0;
-  z-index:2;
+  z-index: 10;
+  backface-visibility: hidden; /* evita parpadeo 3D */
 }
 
 /* Contenido dentro del sobre */
@@ -201,25 +203,30 @@ svg { width: 100%; height: auto; max-width: 400px; }
   margin-top: 100px;
   width: 100%;
   height: calc(100% - 100px);
-  padding:15px;
-  text-align:center;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:1.25rem;
-  color:#6d4c41;
-  opacity:0;
+  padding: 20px 25px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: #6d4c41;
+  opacity: 0;
   transition: opacity 1s ease 0.5s;
   word-wrap: break-word;
-  line-height:1.4;
+  line-height: 1.6;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  box-sizing: border-box;
+  z-index: 20; 
 }
 
-/* Estado abierto del sobre */
+/* Estado abierto del sobre con doblado */
 #carta.abierta .tapa {
-  transform: translateY(-100px);
+  transform: translateY(-110px) rotateX(-75deg); /* rota la tapa para doblarla */
+  z-index: 0;
 }
 #carta.abierta .contenido {
-  opacity:1;
+  opacity: 1;
   margin-top: 20px;
 }
 </style>
@@ -260,7 +267,7 @@ svg { width: 100%; height: auto; max-width: 400px; }
     <g id="petalos" transform="translate(125 125)">
       <!-- 16 pétalos -->
       <g class="petalo-g" transform="rotate(0)"><use href="#petaloShape" class="petalo"/></g>
-      <!-- <g class="petalo-g" transform="rotate(22.5)"><use href="#petaloShape" class="petalo"/></g>
+      <g class="petalo-g" transform="rotate(22.5)"><use href="#petaloShape" class="petalo"/></g>
       <g class="petalo-g" transform="rotate(45)"><use href="#petaloShape" class="petalo"/></g>
       <g class="petalo-g" transform="rotate(67.5)"><use href="#petaloShape" class="petalo"/></g>
       <g class="petalo-g" transform="rotate(90)"><use href="#petaloShape" class="petalo"/></g>
@@ -275,7 +282,7 @@ svg { width: 100%; height: auto; max-width: 400px; }
       <g class="petalo-g" transform="rotate(292.5)"><use href="#petaloShape" class="petalo"/></g>
       <g class="petalo-g" transform="rotate(315)"><use href="#petaloShape" class="petalo"/></g>
       <g class="petalo-g" transform="rotate(337.5)"><use href="#petaloShape" class="petalo"/></g>
-    </g> -->
+    </g>
     <circle class="centro" cx="125" cy="125" r="35"/>
     <circle class="detalles-centro" cx="115" cy="115" r="8"/>
     <circle class="detalles-centro" cx="135" cy="120" r="10"/>
@@ -343,7 +350,7 @@ petalos.forEach(p=>{
       mostrarModal(frases[Math.floor(Math.random()*frases.length)]);
       petalosRemovidos++;
       if(petalosRemovidos===petalos.length){
-        setTimeout(()=> mostrarModal("¡Todas tus flores amarillas han florecido! 💛 Te quiero mucho."),600);
+        setTimeout(()=> mostrarModal("Todas tus flores amarillas han florecido mivida, toca la x y miraa"),600);
       }
     }
   });
@@ -398,7 +405,7 @@ function lanzarFinal(){
     carta.style.transition="transform 1s ease-out";
     void carta.offsetWidth;
     carta.style.transform="translate(-50%, -50%) scale(1) rotate(0deg)";
-    contenidoCarta.textContent="¡Gracias por ser tan especial! 🌟 Que cada pétalo te recuerde lo mucho que te quiero y lo feliz que me haces. 💛💛💛 sdsds dsdsdsdsf dsdsdsd sdsds ds d sdsdsdsd sd ssdsdsdsdsdsd";
+    contenidoCarta.textContent="Eres mi sol en los días grises, mi refugio cuando todo parece difícil, y la razón por la que cada momento se siente mágico. 🌞✨💛 Cada sonrisa tuya ilumina mi mundo, cada palabra tuya llena mi corazón de alegría, y cada instante a tu lado es un regalo que nunca quiero que termine. 🌼💖 Eres única, increíble y simplemente perfecta tal como eres, y quiero que sepas que siempre te llevaré conmigo en cada pensamiento, cada sueño y cada deseo. 🌟🥰💫";
     setTimeout(()=>{ carta.classList.add("abierta"); }, 1000);
     avion.style.transform="translate(-50%, -50%) scale(1) rotate(-15deg)";
   },5000);
