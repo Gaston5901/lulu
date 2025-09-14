@@ -207,17 +207,18 @@ svg { width: 100%; height: auto; max-width: 400px; }
   text-align: center;
   display: flex;
   justify-content: center;
-  align-items: center;
-  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  align-items: flex-start;  /* para que empiece arriba si hay mucho texto */
+  font-size: clamp(1rem, 2.3vw, 1.3rem); /* mejor tamaño adaptable */
   color: #6d4c41;
   opacity: 0;
   transition: opacity 1s ease 0.5s;
   word-wrap: break-word;
   line-height: 1.6;
-  overflow-y: auto;
+  overflow-y: auto;   /* scroll si se pasa */
   white-space: pre-wrap;
   box-sizing: border-box;
-  z-index: 20; 
+  z-index: 20;
+  max-height: 300px;  /* evita que se corte afuera */
 }
 
 /* Estado abierto del sobre con doblado */
