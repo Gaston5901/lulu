@@ -1,177 +1,265 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Para vos, mi amor ✨</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg1: #1e1a4d;
-      --bg2: #6a11cb;
-      --soft: rgba(255,255,255,0.08);
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%;font-family:Inter, system-ui, sans-serif;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Único Amor aguss</title>
+    
+    <style>
+        /* ========================== */
+        /* ESTILOS GENERALES Y LAYOUT */
+        /* ========================== */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* CAMBIO CLAVE: Quitamos min-height: 100vh para permitir el scroll en caso de mucho contenido */
+            padding: 40px 0; /* Padding superior e inferior para que no quede pegado al borde */
+            margin: 0;
+            background: linear-gradient(135deg, #f06292 0%, #ffc1e3 100%); 
+            font-family: 'Georgia', serif;
+            color: #4a148c; 
+            overflow-x: hidden; /* Oculta el scroll horizontal si aparece */
+            text-align: center;
+        }
+        
+        /* Contenedor Principal de la Tarjeta */
+        .card {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px; 
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            max-width: 600px; 
+            width: 90%; /* Asegura que ocupe buen ancho en móvil */
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+            box-sizing: border-box;
+            border: 8px solid #e91e63;
+            box-shadow: inset 0 0 15px rgba(233, 30, 99, 0.5), 0 15px 40px rgba(0, 0, 0, 0.3);
+            margin: 20px 0; /* Espacio extra para que no se pegue al fondo en scroll */
+        }
+        
+        .card-visible {
+            opacity: 1 !important;
+            transform: scale(1) !important;
+            animation: float-subtle 4s infinite alternate;
+        }
+        
+        /* Animación de flotación sutil */
+        @keyframes float-subtle {
+            from { transform: translateY(0px) scale(1); }
+            to { transform: translateY(-5px) scale(1.01); }
+        }
 
-    body{
-      background: linear-gradient(180deg,var(--bg1), var(--bg2));
-      color: #fdfcfe;
-      display:flex;align-items:center;justify-content:center;
-      overflow:hidden;
-    }
+        /* Estilos del Contenido del Amor (Se muestra después de continuar) */
+        #love-content {
+            display: none; 
+            animation: slideInUp 1s ease-out forwards;
+        }
 
-    /* Pantalla inicial */
-    #startScreen{
-      position:fixed;
-      top:0;left:0;width:100%;height:100%;
-      background: radial-gradient(1000px 600px at 50% 30%, rgba(255,133,162,0.15), transparent),
-                  linear-gradient(180deg,var(--bg1), var(--bg2));
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:2rem;
-      z-index:1000;
-      text-align:center;
-      padding:1rem;
-    }
-    #startScreen h2{
-      font-size:1.8rem;
-      color:#fff3f7;
-    }
-    #startBtn{
-      background:linear-gradient(135deg,#ff4e7a,#ff9aa2);
-      color:white;
-      border:none;
-      padding:14px 28px;
-      border-radius:20px;
-      font-size:1.2rem;
-      font-weight:700;
-      cursor:pointer;
-      box-shadow:0 6px 18px rgba(255,90,120,0.3);
-      transition:transform 0.2s;
-    }
-    #startBtn:hover{
-      transform:scale(1.05);
-    }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    /* Globos de fondo */
-    .float{position:absolute;border-radius:50%;filter:blur(50px);opacity:0.4;mix-blend-mode:screen;z-index:-1}
-    .f1{width:320px;height:320px;left:-15%;top:-10%;background:linear-gradient(135deg,#ff6f91,#ff9671)}
-    .f2{width:240px;height:240px;right:-15%;bottom:-10%;background:linear-gradient(135deg,#6dd5ed,#2193b0)}
-    .f3{width:200px;height:200px;left:50%;top:15%;transform:translateX(-50%);background:linear-gradient(135deg,#a18cd1,#fbc2eb);opacity:0.25}
+        /* Título Principal */
+        h1 {
+            color: #d81b60; 
+            font-size: 3em; 
+            margin-bottom: 0.1em;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
+        }
 
-    /* Tarjeta principal */
-    .card{
-      width:100%;max-width:480px;
-      background: rgba(255,255,255,0.06);
-      border:1px solid var(--soft);
-      border-radius:20px;
-      padding:1.6rem;
-      box-shadow: 0 12px 32px rgba(10,6,23,0.5);
-      backdrop-filter: blur(8px);
-      display:flex;flex-direction:column;gap:1.2rem;
-      text-align:center;
-      animation:enter 800ms ease forwards;
-      opacity:0;
-      pointer-events:none;
-    }
-    .show{opacity:1;pointer-events:auto;}
+        /* Mensajes de Amor */
+        p {
+            font-size: 1.3em;
+            line-height: 1.7;
+            color: #6a1b9a; 
+        }
+        
+        .orgullo {
+            font-weight: 700;
+            color: #00897b; 
+            display: block;
+            margin-top: 25px;
+            padding: 10px;
+            background-color: #e0f2f1;
+            border-radius: 10px;
+        }
 
-    h1{font-size:1.8rem;line-height:1.3}
-    p{line-height:1.5;color:rgba(250,250,250,0.92)}
+        /* ========================== */
+        /* BOTÓN INICIAL (BANDERA) */
+        /* ========================== */
+        #continue-btn {
+            background-color: #ff4081; 
+            color: white;
+            border: none;
+            padding: 18px 40px; 
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.3em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px #c51162; 
+        }
 
-    .heart{width:68px;height:68px;border-radius:16px;margin:0 auto 0.6rem;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ff4e7a,#ff9aa2);box-shadow:0 6px 20px rgba(255,90,120,0.22)}
+        #continue-btn:hover {
+            background-color: #c51162;
+            transform: translateY(-3px);
+            box-shadow: 0 9px #880e4f;
+        }
 
-    .quote-box{background:rgba(255,255,255,0.05);border-radius:14px;padding:1rem;border:1px solid rgba(255,255,255,0.05);font-weight:600;font-size:1rem}
+        /* ========================== */
+        /* DECORACIONES (Flores y Corazones) */
+        /* ========================== */
+        .decoration {
+            position: absolute;
+            opacity: 0;
+            animation: float 20s linear infinite;
+            pointer-events: none;
+        }
 
-    .message{background:rgba(255,255,255,0.06);border-radius:14px;padding:1rem 1.2rem;border:1px solid rgba(255,255,255,0.05)}
-    .big-msg{font-size:1.15rem;font-weight:700;margin:0;color:#ffeef4}
-    .small{font-size:0.9rem;opacity:0.9;margin-top:0.4rem}
+        .heart {
+            font-size: 2.5em; 
+            color: #e91e63;
+        }
+        
+        .flower {
+            font-size: 2em;
+            color: #ffc107;
+        }
 
-    footer{margin-top:0.6rem;font-size:0.8rem;opacity:0.85;display:flex;justify-content:space-between}
+        .star {
+            font-size: 1.8em;
+            color: #ffffff;
+        }
+        
+        /* Animación de flotar */
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg) scale(1); opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) rotate(720deg) scale(0.5); opacity: 0; }
+        }
 
-    @keyframes enter{from{transform:translateY(20px);opacity:0}to{transform:none;opacity:1}}
+        /* ========================== */
+        /* MEDIA QUERY: OPTIMIZACIÓN MÓVIL (max 600px) */
+        /* ========================== */
+        @media (max-width: 600px) {
+            .card {
+                padding: 30px 20px; 
+                border-width: 5px; 
+            }
 
-    /* 📱 Responsive */
-    @media (max-width: 480px){
-      h1{font-size:1.4rem;}
-      p{font-size:0.95rem;}
-      .heart{width:54px;height:54px;}
-      .quote-box{font-size:0.9rem;padding:0.8rem;}
-      .big-msg{font-size:1rem;}
-      .small{font-size:0.8rem;}
-      footer{font-size:0.7rem;flex-direction:column;gap:0.3rem;text-align:center;}
-    }
-  </style>
+            h1 {
+                font-size: 2.2em; 
+            }
+
+            p {
+                font-size: 1.1em; 
+            }
+            
+            #continue-btn {
+                font-size: 1.1em;
+                padding: 15px 30px;
+            }
+
+            .decoration {
+                font-size: 1.5em;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Pantalla inicial -->
-  <div id="startScreen">
-    <h2>💖 Tengo algo especial para vos 💖</h2>
-    <button id="startBtn">Tocar para entrar ✨</button>
-  </div>
+    
+    <audio id="background-music" loop>
+        <source src="princeroyce.mp4" type="audio/mpeg">
+       
+    </audio>
 
-  <!-- Fondos -->
-  <div class="float f1"></div>
-  <div class="float f2"></div>
-  <div class="float f3"></div>
-
-  <!-- Tarjeta -->
-  <main class="card" role="main" id="mainCard">
-    <div class="heart" aria-hidden>
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 21s-7.5-4.35-9.3-7.05C0.9 11.85 3.2 7.5 7.2 7.5c2.1 0 3.3 1.2 4.8 3.3 1.5-2.1 2.7-3.3 4.8-3.3 4 0 6.3 4.35 4.5 6.45C19.5 16.65 12 21 12 21z"/>
-      </svg>
+    <div class="card" id="initial-card">
+        <h1>Holaa Mi Amorcitoo ❤️</h1>
+        <p style="font-style: italic; font-size: 1.2em;">Toca "Continuar" para que la magia comience.</p>
+        <button id="continue-btn">Continuar</button>
+        
+        <div id="love-content">
+            <hr style="border-color: #ff4081; margin: 25px auto; width: 80%;">
+            <h1>Mi Vida Eres Tuu aguschii</h1>
+            <p>
+                Aunque estemos lejos, tú eres mi universo y mi vidaa cieloo. Te amo infinitamente Estoy inmensamente orgulloso de tu fuerza y de la hermosa personas que sos y tu valentia.
+            </p>
+            <p class="orgullo">
+                quiero que sepas que estoy profundamente orgullosoo de cada pequeño logro tuyo, de tu bondad, de tus ganas de seguir adelante a pesar de las dificultades. Eres una mujer increíble y valiente, y cada día me inspiras más. Nunca olvides lo especial que eres para mí y lo mucho que te amo amorcitoo<33
+            </p>
+            <p style="margin-top: 30px; color: #d81b60; font-size: 1.7em; font-weight: bold;">
+                Gorditaa sos todo para mii.
+            </p>
+            <p style="margin-top: 10px; font-size: 1.2em;">
+                Con todo mi corazón, <br> Gastónn
+            </p>
+        </div>
     </div>
-    <h1>Para vos, mi amor ❤️</h1>
-    <p>En medio de lo difícil, quiero recordarte que eres mi razón de sonreír. Te admiro porque, incluso en los momentos grises, sigues brillando como nunca miamorr💘💝.</p>
 
-    <div class="quote-box" id="quote">"Sé fuerte, mi vida: las tormentas no duran para siempre, y yo estaré a tu lado hasta que vuelva el sol."</div>
+    <script>
+        const card = document.getElementById('initial-card');
+        const continueBtn = document.getElementById('continue-btn');
+        const loveContent = document.getElementById('love-content');
+        const music = document.getElementById('background-music');
+        const body = document.body;
+        
+        // Mostrar la tarjeta con animación al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            card.classList.add('card-visible');
+            createDecorations(body, 80); // Lluvia de decoraciones
+        });
 
-    <div class="message">
-      <p class="big-msg">Siempre contigo, en cada paso.</p>
-      <p class="small">Eres lo mejor que me pasó. Estoy para recordarte cada día la mujerr increíble que sos aguschii y lo orgulloso que estoy de voss<33.</p>
-    </div>
+        // 1. FUNCIONALIDAD DEL BOTÓN CONTINUAR (Bandera)
+        continueBtn.addEventListener('click', () => {
+            // A. Iniciar Música
+            music.play().catch(error => {
+                console.log("No se pudo iniciar la música automáticamente:", error);
+            });
+            
+            // B. Mostrar Contenido Oculto
+            continueBtn.style.display = 'none'; 
+            loveContent.style.display = 'block'; 
 
-    <footer>
-      <div>Con todo mi amor 💖</div>
-      <div>Gastónn ✨</div>
-    </footer>
-  </main>
+            // C. Cambiar Título Inicial
+            const initialTitle = card.querySelector('h1');
+            initialTitle.textContent = "¡Mi Vida, Aquí Está Mi Corazón! 💖";
+            initialTitle.style.fontSize = '2.5em';
+        });
 
-  <!-- Música -->
-  <audio id="bgMusic" loop>
-    <source src="morat.mp4" type="audio/mpeg">
-  </audio>
+        // 2. CREACIÓN DE DECORACIONES (Corazones, Flores y Estrellas)
+        function createDecorations(container, count) {
+            const decorations = [
+                { text: '❤️', class: 'heart' }, 
+                { text: '💖', class: 'heart' }, 
+                { text: '🌹', class: 'flower' }, 
+                { text: '🌷', class: 'flower' }, 
+                { text: '🌟', class: 'star' }
+            ];
+            
+            for (let i = 0; i < count; i++) {
+                const deco = document.createElement('div');
+                
+                const item = decorations[Math.floor(Math.random() * decorations.length)];
+                deco.textContent = item.text;
+                deco.classList.add('decoration', item.class);
 
-  <script>
-    // Frases que cambian
-    const quotes = [
-      '"Sé fuerte, mi vida: las tormentas no duran para siempre, y yo estaré a tu lado hasta que vuelva el sol."',
-      '"Cada día que pasa estás más cerca de la calma que mereces."',
-      '"No importa lo difícil que se vea, juntos siempre encontraremos el camino."',
-      '"Eres capaz de más de lo que imaginas, y yo estaré siempre para recordártelo."'
-    ];
-    let qIndex = 0;
-    const quoteEl = document.getElementById('quote');
-    setInterval(()=>{
-      qIndex = (qIndex+1) % quotes.length;
-      quoteEl.textContent = quotes[qIndex];
-    }, 7000);
-
-    // 🎵 Botón inicial
-    const startBtn = document.getElementById("startBtn");
-    const startScreen = document.getElementById("startScreen");
-    const mainCard = document.getElementById("mainCard");
-    const music = document.getElementById("bgMusic");
-
-    startBtn.addEventListener("click", ()=>{
-      startScreen.style.display="none";
-      mainCard.classList.add("show");
-      music.play();
-    });
-  </script>
+                // Posición y animaciones aleatorias
+                deco.style.left = Math.random() * 100 + 'vw'; 
+                deco.style.animationDelay = Math.random() * 20 + 's';
+                deco.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                container.appendChild(deco);
+            }
+        }
+        
+    </script>
 </body>
 </html>
