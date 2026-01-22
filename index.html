@@ -3,263 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Mi Único Amor aguss</title>
-    
+    <title>¡Feliz Cumpleaños Luana!</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        /* ========================== */
-        /* ESTILOS GENERALES Y LAYOUT */
-        /* ========================== */
+        :root {
+            --primario: #ff69b4;
+            --secundario: #9b59b6;
+            --fondo: #fce4ec;
+        }
+
         body {
+            margin: 0;
+            padding: 0;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            /* CAMBIO CLAVE: Quitamos min-height: 100vh para permitir el scroll en caso de mucho contenido */
-            padding: 40px 0; /* Padding superior e inferior para que no quede pegado al borde */
-            margin: 0;
-            background: linear-gradient(135deg, #f06292 0%, #ffc1e3 100%); 
-            font-family: 'Georgia', serif;
-            color: #4a148c; 
-            overflow-x: hidden; /* Oculta el scroll horizontal si aparece */
-            text-align: center;
+            min-height: 100vh;
+            background-color: var(--fondo);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
         }
-        
-        /* Contenedor Principal de la Tarjeta */
+
         .card {
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 30px;
-            padding: 50px; 
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-            max-width: 600px; 
-            width: 90%; /* Asegura que ocupe buen ancho en móvil */
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 94%;
             position: relative;
-            z-index: 10;
-            opacity: 0;
-            transform: scale(0.9);
-            transition: opacity 1s ease-out, transform 1s ease-out;
-            box-sizing: border-box;
-            border: 8px solid #e91e63;
-            box-shadow: inset 0 0 15px rgba(233, 30, 99, 0.5), 0 15px 40px rgba(0, 0, 0, 0.3);
-            margin: 20px 0; /* Espacio extra para que no se pegue al fondo en scroll */
-        }
-        
-        .card-visible {
-            opacity: 1 !important;
-            transform: scale(1) !important;
-            animation: float-subtle 4s infinite alternate;
-        }
-        
-        /* Animación de flotación sutil */
-        @keyframes float-subtle {
-            from { transform: translateY(0px) scale(1); }
-            to { transform: translateY(-5px) scale(1.01); }
+            z-index: 1;
         }
 
-        /* Estilos del Contenido del Amor (Se muestra después de continuar) */
-        #love-content {
-            display: none; 
-            animation: slideInUp 1s ease-out forwards;
-        }
-
-        @keyframes slideInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Título Principal */
         h1 {
-            color: #d81b60; 
-            font-size: 3em; 
-            margin-bottom: 0.1em;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
+            color: var(--primario);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
         }
 
-        /* Mensajes de Amor */
+        .numero {
+            font-size: 5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--primario), var(--secundario));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 10px 0;
+        }
+
         p {
-            font-size: 1.3em;
-            line-height: 1.7;
-            color: #6a1b9a; 
-        }
-        
-        .orgullo {
-            font-weight: 700;
-            color: #00897b; 
-            display: block;
-            margin-top: 25px;
-            padding: 10px;
-            background-color: #e0f2f1;
-            border-radius: 10px;
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
 
-        /* ========================== */
-        /* BOTÓN INICIAL (BANDERA) */
-        /* ========================== */
-        #continue-btn {
-            background-color: #ff4081; 
+        .btn-regalo {
+            background: var(--primario);
             color: white;
             border: none;
-            padding: 18px 40px; 
+            padding: 12px 25px;
             border-radius: 50px;
+            font-size: 1rem;
             cursor: pointer;
-            font-size: 1.3em;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px #c51162; 
+            transition: transform 0.2s, background 0.3s;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
         }
 
-        #continue-btn:hover {
-            background-color: #c51162;
-            transform: translateY(-3px);
-            box-shadow: 0 9px #880e4f;
+        .btn-regalo:hover {
+            transform: scale(1.1);
+            background: #ff4da6;
         }
 
-        /* ========================== */
-        /* DECORACIONES (Flores y Corazones) */
-        /* ========================== */
-        .decoration {
+        .decoracion {
             position: absolute;
-            opacity: 0;
-            animation: float 20s linear infinite;
-            pointer-events: none;
+            font-size: 2.5rem;
+            z-index: 0;
+            animation: flotar 3s ease-in-out infinite;
         }
 
-        .heart {
-            font-size: 2.5em; 
-            color: #e91e63;
-        }
-        
-        .flower {
-            font-size: 2em;
-            color: #ffc107;
+        @keyframes flotar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
 
-        .star {
-            font-size: 1.8em;
-            color: #ffffff;
-        }
-        
-        /* Animación de flotar */
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg) scale(1); opacity: 0; }
-            20% { opacity: 0.8; }
-            80% { opacity: 0.8; }
-            100% { transform: translateY(-100vh) rotate(720deg) scale(0.5); opacity: 0; }
-        }
-
-        /* ========================== */
-        /* MEDIA QUERY: OPTIMIZACIÓN MÓVIL (max 600px) */
-        /* ========================== */
         @media (max-width: 600px) {
             .card {
-                padding: 30px 20px; 
-                border-width: 5px; 
+                padding: 1.1rem 0.5rem 1.5rem 0.5rem;
+                max-width: 98vw;
+                border-radius: 14px;
             }
-
             h1 {
-                font-size: 2.2em; 
+                font-size: 1.45rem !important;
             }
-
+            .numero {
+                font-size: 2.7rem;
+            }
+            .btn-regalo {
+                font-size: 0.95rem;
+                padding: 10px 14px;
+            }
+            .decoracion {
+                font-size: 1.5rem;
+            }
+            svg {
+                width: 70px !important;
+                height: 55px !important;
+            }
             p {
-                font-size: 1.1em; 
-            }
-            
-            #continue-btn {
-                font-size: 1.1em;
-                padding: 15px 30px;
-            }
-
-            .decoration {
-                font-size: 1.5em;
+                font-size: 0.98rem;
             }
         }
     </style>
 </head>
 <body>
-    
-    <audio id="background-music" loop>
-        <source src="princeroyce.mp4" type="audio/mpeg">
-       
-    </audio>
 
-    <div class="card" id="initial-card">
-        <h1>Holaa Mi Amorcitoo ❤️</h1>
-        <p style="font-style: italic; font-size: 1.2em;">Toca "Continuar" para que la magia comience.</p>
-        <button id="continue-btn">Continuar</button>
-        
-        <div id="love-content">
-            <hr style="border-color: #ff4081; margin: 25px auto; width: 80%;">
-            <h1>Mi Vida Eres Tuu aguschii</h1>
-            <p>
-                Aunque estemos lejos, tú eres mi universo y mi vidaa cieloo. Te amo infinitamente Estoy inmensamente orgulloso de tu fuerza y de la hermosa personas que sos y tu valentia.
-            </p>
-            <p class="orgullo">
-                quiero que sepas que estoy profundamente orgullosoo de cada pequeño logro tuyo, de tu bondad, de tus ganas de seguir adelante a pesar de las dificultades. Eres una mujer increíble y valiente, y cada día me inspiras más. Nunca olvides lo especial que eres para mí y lo mucho que te amo amorcitoo<33
-            </p>
-            <p style="margin-top: 30px; color: #d81b60; font-size: 1.7em; font-weight: bold;">
-                Gorditaa sos todo para mii.
-            </p>
-            <p style="margin-top: 10px; font-size: 1.2em;">
-                Con todo mi corazón, <br> Gastónn
-            </p>
+    <div class="decoracion" style="top: 10%; left: 10%; font-size:2.5rem;">🎈</div>
+    <div class="decoracion" style="top: 20%; right: 15%; animation-delay: 1s; font-size:2.5rem;">✨</div>
+    <div class="decoracion" style="bottom: 15%; left: 15%; animation-delay: 0.5s; font-size:2.5rem;">🎉</div>
+    <div class="decoracion" style="bottom: 10%; right: 10%; animation-delay: 1.5s; font-size:2.5rem;">💖</div>
+
+    <div class="card">
+        <div style="margin-bottom: 1.2rem;">
+            <!-- Título decorativo con sombra y emojis -->
+            <h1 style="
+                color: var(--primario); 
+                font-size: 2.7rem; 
+                margin-bottom: 0.2rem; 
+                text-shadow: 0 2px 12px #ffb6d580, 0 1px 0 #fff;
+                letter-spacing: 0.03em;
+                font-family: 'Segoe Script', 'Dancing Script', cursive, sans-serif;">
+                🎉 ¡Feliz Cumpleaños! 🎂
+            </h1>
+            <div style="font-size:1.5rem; color:var(--secundario); font-weight:600; margin-bottom:0.5rem;">Luana</div>
         </div>
+        <!-- Torta SVG grande y colorida -->
+        <div style="margin-bottom:1.2rem;">
+            <svg width="110" height="90" viewBox="0 0 110 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="55" cy="80" rx="40" ry="10" fill="#f8bbd0"/>
+                <rect x="20" y="40" width="70" height="40" rx="18" fill="#fff" stroke="#f8bbd0" stroke-width="3"/>
+                <rect x="30" y="25" width="50" height="20" rx="10" fill="#ffe082" stroke="#fbc02d" stroke-width="2"/>
+                <ellipse cx="55" cy="25" rx="25" ry="7" fill="#ff69b4"/>
+                <rect x="52" y="10" width="6" height="18" rx="3" fill="#ffd700"/>
+                <ellipse cx="55" cy="10" rx="3" ry="3" fill="#fff59d"/>
+                <ellipse cx="55" cy="10" rx="1.2" ry="1.2" fill="#ffb300"/>
+                <!-- Sprinkles -->
+                <rect x="38" y="28" width="2" height="6" rx="1" fill="#f48fb1"/>
+                <rect x="45" y="30" width="2" height="5" rx="1" fill="#ba68c8"/>
+                <rect x="62" y="28" width="2" height="6" rx="1" fill="#ffd54f"/>
+                <rect x="70" y="30" width="2" height="5" rx="1" fill="#81d4fa"/>
+            </svg>
+        </div>
+        <div class="numero" style="margin-bottom:0.2rem;">12</div>
+        <p style="margin-bottom:1.2rem; font-size:1.15rem; color:#a64ca6; font-weight:500;">
+            ¡Hoy celebramos tu día especial!<br>
+            Que la vida te regale siempre motivos para sonreír, soñar y disfrutar.<br>
+            <span style="color:#ff69b4; font-size:1.2em;">¡Te queremos mucho!</span>
+        </p>
+        <button class="btn-regalo" onclick="lanzarConfetti()">
+            ¡Clic para tu sorpresa! 🎁
+        </button>
     </div>
 
     <script>
-        const card = document.getElementById('initial-card');
-        const continueBtn = document.getElementById('continue-btn');
-        const loveContent = document.getElementById('love-content');
-        const music = document.getElementById('background-music');
-        const body = document.body;
-        
-        // Mostrar la tarjeta con animación al cargar
-        document.addEventListener('DOMContentLoaded', () => {
-            card.classList.add('card-visible');
-            createDecorations(body, 80); // Lluvia de decoraciones
-        });
+        // Lanzar confetti al cargar la página
+        window.onload = () => {
+            lanzarConfetti();
+        };
 
-        // 1. FUNCIONALIDAD DEL BOTÓN CONTINUAR (Bandera)
-        continueBtn.addEventListener('click', () => {
-            // A. Iniciar Música
-            music.play().catch(error => {
-                console.log("No se pudo iniciar la música automáticamente:", error);
-            });
-            
-            // B. Mostrar Contenido Oculto
-            continueBtn.style.display = 'none'; 
-            loveContent.style.display = 'block'; 
+        function lanzarConfetti() {
+            // Configuración de la explosión de colores
+            var duration = 3 * 1000;
+            var end = Date.now() + duration;
 
-            // C. Cambiar Título Inicial
-            const initialTitle = card.querySelector('h1');
-            initialTitle.textContent = "¡Mi Vida, Aquí Está Mi Corazón! 💖";
-            initialTitle.style.fontSize = '2.5em';
-        });
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ff69b4', '#9b59b6', '#ffffff']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ff69b4', '#9b59b6', '#ffffff']
+                });
 
-        // 2. CREACIÓN DE DECORACIONES (Corazones, Flores y Estrellas)
-        function createDecorations(container, count) {
-            const decorations = [
-                { text: '❤️', class: 'heart' }, 
-                { text: '💖', class: 'heart' }, 
-                { text: '🌹', class: 'flower' }, 
-                { text: '🌷', class: 'flower' }, 
-                { text: '🌟', class: 'star' }
-            ];
-            
-            for (let i = 0; i < count; i++) {
-                const deco = document.createElement('div');
-                
-                const item = decorations[Math.floor(Math.random() * decorations.length)];
-                deco.textContent = item.text;
-                deco.classList.add('decoration', item.class);
-
-                // Posición y animaciones aleatorias
-                deco.style.left = Math.random() * 100 + 'vw'; 
-                deco.style.animationDelay = Math.random() * 20 + 's';
-                deco.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                
-                container.appendChild(deco);
-            }
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
         }
-        
     </script>
 </body>
 </html>

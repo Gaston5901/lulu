@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Único Amor aguss</title>
+    
+    <style>
+        /* ========================== */
+        /* ESTILOS GENERALES Y LAYOUT */
+        /* ========================== */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* CAMBIO CLAVE: Quitamos min-height: 100vh para permitir el scroll en caso de mucho contenido */
+            padding: 40px 0; /* Padding superior e inferior para que no quede pegado al borde */
+            margin: 0;
+            background: linear-gradient(135deg, #f06292 0%, #ffc1e3 100%); 
+            font-family: 'Georgia', serif;
+            color: #4a148c; 
+            overflow-x: hidden; /* Oculta el scroll horizontal si aparece */
+            text-align: center;
+        }
+        
+        /* Contenedor Principal de la Tarjeta */
+        .card {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px; 
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            max-width: 600px; 
+            width: 90%; /* Asegura que ocupe buen ancho en móvil */
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+            box-sizing: border-box;
+            border: 8px solid #e91e63;
+            box-shadow: inset 0 0 15px rgba(233, 30, 99, 0.5), 0 15px 40px rgba(0, 0, 0, 0.3);
+            margin: 20px 0; /* Espacio extra para que no se pegue al fondo en scroll */
+        }
+        
+        .card-visible {
+            opacity: 1 !important;
+            transform: scale(1) !important;
+            animation: float-subtle 4s infinite alternate;
+        }
+        
+        /* Animación de flotación sutil */
+        @keyframes float-subtle {
+            from { transform: translateY(0px) scale(1); }
+            to { transform: translateY(-5px) scale(1.01); }
+        }
+
+        /* Estilos del Contenido del Amor (Se muestra después de continuar) */
+        #love-content {
+            display: none; 
+            animation: slideInUp 1s ease-out forwards;
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Título Principal */
+        h1 {
+            color: #d81b60; 
+            font-size: 3em; 
+            margin-bottom: 0.1em;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Mensajes de Amor */
+        p {
+            font-size: 1.3em;
+            line-height: 1.7;
+            color: #6a1b9a; 
+        }
+        
+        .orgullo {
+            font-weight: 700;
+            color: #00897b; 
+            display: block;
+            margin-top: 25px;
+            padding: 10px;
+            background-color: #e0f2f1;
+            border-radius: 10px;
+        }
+
+        /* ========================== */
+        /* BOTÓN INICIAL (BANDERA) */
+        /* ========================== */
+        #continue-btn {
+            background-color: #ff4081; 
+            color: white;
+            border: none;
+            padding: 18px 40px; 
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.3em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px #c51162; 
+        }
+
+        #continue-btn:hover {
+            background-color: #c51162;
+            transform: translateY(-3px);
+            box-shadow: 0 9px #880e4f;
+        }
+
+        /* ========================== */
+        /* DECORACIONES (Flores y Corazones) */
+        /* ========================== */
+        .decoration {
+            position: absolute;
+            opacity: 0;
+            animation: float 20s linear infinite;
+            pointer-events: none;
+        }
+
+        .heart {
+            font-size: 2.5em; 
+            color: #e91e63;
+        }
+        
+        .flower {
+            font-size: 2em;
+            color: #ffc107;
+        }
+
+        .star {
+            font-size: 1.8em;
+            color: #ffffff;
+        }
+        
+        /* Animación de flotar */
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg) scale(1); opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) rotate(720deg) scale(0.5); opacity: 0; }
+        }
+
+        /* ========================== */
+        /* MEDIA QUERY: OPTIMIZACIÓN MÓVIL (max 600px) */
+        /* ========================== */
+        @media (max-width: 600px) {
+            .card {
+                padding: 30px 20px; 
+                border-width: 5px; 
+            }
+
+            h1 {
+                font-size: 2.2em; 
+            }
+
+            p {
+                font-size: 1.1em; 
+            }
+            
+            #continue-btn {
+                font-size: 1.1em;
+                padding: 15px 30px;
+            }
+
+            .decoration {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <audio id="background-music" loop>
+        <source src="princeroyce.mp4" type="audio/mpeg">
+       
+    </audio>
+
+    <div class="card" id="initial-card">
+        <h1>Holaa Mi Amorcitoo ❤️</h1>
+        <p style="font-style: italic; font-size: 1.2em;">Toca "Continuar" para que la magia comience.</p>
+        <button id="continue-btn">Continuar</button>
+        
+        <div id="love-content">
+            <hr style="border-color: #ff4081; margin: 25px auto; width: 80%;">
+            <h1>Mi Vida Eres Tuu aguschii</h1>
+            <p>
+                Aunque estemos lejos, tú eres mi universo y mi vidaa cieloo. Te amo infinitamente Estoy inmensamente orgulloso de tu fuerza y de la hermosa personas que sos y tu valentia.
+            </p>
+            <p class="orgullo">
+                quiero que sepas que estoy profundamente orgullosoo de cada pequeño logro tuyo, de tu bondad, de tus ganas de seguir adelante a pesar de las dificultades. Eres una mujer increíble y valiente, y cada día me inspiras más. Nunca olvides lo especial que eres para mí y lo mucho que te amo amorcitoo<33
+            </p>
+            <p style="margin-top: 30px; color: #d81b60; font-size: 1.7em; font-weight: bold;">
+                Gorditaa sos todo para mii.
+            </p>
+            <p style="margin-top: 10px; font-size: 1.2em;">
+                Con todo mi corazón, <br> Gastónn
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const card = document.getElementById('initial-card');
+        const continueBtn = document.getElementById('continue-btn');
+        const loveContent = document.getElementById('love-content');
+        const music = document.getElementById('background-music');
+        const body = document.body;
+        
+        // Mostrar la tarjeta con animación al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            card.classList.add('card-visible');
+            createDecorations(body, 80); // Lluvia de decoraciones
+        });
+
+        // 1. FUNCIONALIDAD DEL BOTÓN CONTINUAR (Bandera)
+        continueBtn.addEventListener('click', () => {
+            // A. Iniciar Música
+            music.play().catch(error => {
+                console.log("No se pudo iniciar la música automáticamente:", error);
+            });
+            
+            // B. Mostrar Contenido Oculto
+            continueBtn.style.display = 'none'; 
+            loveContent.style.display = 'block'; 
+
+            // C. Cambiar Título Inicial
+            const initialTitle = card.querySelector('h1');
+            initialTitle.textContent = "¡Mi Vida, Aquí Está Mi Corazón! 💖";
+            initialTitle.style.fontSize = '2.5em';
+        });
+
+        // 2. CREACIÓN DE DECORACIONES (Corazones, Flores y Estrellas)
+        function createDecorations(container, count) {
+            const decorations = [
+                { text: '❤️', class: 'heart' }, 
+                { text: '💖', class: 'heart' }, 
+                { text: '🌹', class: 'flower' }, 
+                { text: '🌷', class: 'flower' }, 
+                { text: '🌟', class: 'star' }
+            ];
+            
+            for (let i = 0; i < count; i++) {
+                const deco = document.createElement('div');
+                
+                const item = decorations[Math.floor(Math.random() * decorations.length)];
+                deco.textContent = item.text;
+                deco.classList.add('decoration', item.class);
+
+                // Posición y animaciones aleatorias
+                deco.style.left = Math.random() * 100 + 'vw'; 
+                deco.style.animationDelay = Math.random() * 20 + 's';
+                deco.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                container.appendChild(deco);
+            }
+        }
+        
+    </script>
+</body>
+</html>
